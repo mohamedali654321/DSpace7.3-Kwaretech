@@ -1,0 +1,46 @@
+<div class="d-flex">
+  <!-- kware edit
+           call getStringByLocale to separate string br bar '|'  -->
+  <span class="badge badge-info" *ngIf="dso.hasMetadata('dc.type')" >{{localeService.getStringByLocale(firstMetadataValue('dc.type'))}}</span>
+  <ds-access-status-badge [item]="dso" class="pl-1"></ds-access-status-badge>
+</div>
+
+<ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
+       [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
+       [innerHTML]="dsoTitle"></a>
+    <span *ngIf="linkType == linkTypes.None" class="lead item-list-title dont-break-out"
+          [innerHTML]="dsoTitle"></span>
+    <span class="text-muted">
+      <ds-truncatable-part [id]="dso.id" [minLines]="1">
+        <ng-container *ngIf="dso.firstMetadataValue('dc.publisher') || dso.firstMetadataValue('dc.date.issued')">
+          (<span *ngIf="dso.firstMetadataValue('dc.publisher')" class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher') +regxColon()"></span>
+          <span *ngIf="dso.firstMetadataValue('dc.date.issued')" class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
+        </ng-container>
+        <span *ngIf="authors.length > 0" class="item-list-authors">
+          <span *ngFor="let author of authors; let last=last;">{{regxColon()}}
+            <!-- kware edit
+                        regxColon put semicolon 
+                       convertComma replace comma ', or ;' to '،' if language  is Arabic
+                     -->
+              <span [innerHTML]="convertComma(author)"><span [innerHTML]="convertComma(author)"></span></span>
+              <!-- <span *ngIf="!last">{{regxColon()}} </span> -->
+          </span>
+        </span>
+      </ds-truncatable-part>
+    </span>
+         <!-- kware-edit keywords show -->
+              
+         <div  *ngIf="dso.hasMetadata('dc.subject')"  >
+          <div class="keys-info  ">
+            <span class=" badge-info"    *ngFor="let keyword of keywords;let last=last;"><a  style="white-space: -webkit-nowrap !important;font-size:15px ;font-weight: 600;"  href="/search?query=&f.subject={{keyword}},equals" title="{{keyword}}">{{keyword}}</a><span  style="color:#207698 ;" *ngIf="!last"> • </span> </span>
+          </div>
+          </div>
+          
+    <div *ngIf="dso.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">
+        <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
+                [innerHTML]="localeService.getStringByLocale(firstMetadataValue('dc.description.abstract'))"></span>
+        </ds-truncatable-part>
+        <!-- end kawre edit -->
+    </div>
+</ds-truncatable>

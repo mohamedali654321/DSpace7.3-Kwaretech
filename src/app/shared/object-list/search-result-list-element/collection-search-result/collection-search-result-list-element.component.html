@@ -1,0 +1,7 @@
+<ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+<!-- kware edit
+           call getStringByLocale to separate string br bar '|'  -->
+<a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/collections/' + dso.id]" class="lead" [innerHTML]="localeService.getStringByLocale(dsoTitle)"></a>
+<span *ngIf="linkType == linkTypes.None" class="lead" [innerHTML]="localeService.getStringByLocale(dsoTitle)"></span>
+<div *ngIf="dso.shortDescription" class="text-muted abstract-text" [innerHTML]="localeService.getStringByLocale(firstMetadataValue('dc.description.abstract'))"></div>
+<!-- end kawre edit -->

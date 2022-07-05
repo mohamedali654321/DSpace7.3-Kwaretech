@@ -1,0 +1,9 @@
+<a class="badge badge-primary mr-1 mb-1 text-capitalize"
+   [routerLink]="searchLink"
+   [queryParams]="(removeParameters | async)" queryParamsHandling="merge">
+            <!-- kware edit
+           call getStringByLocale to separate string br bar '|'  -->
+   {{('search.filters.applied.' + key) | translate}}: {{'search.filters.' + localeService.getStringByLocale(filterName) + '.' + localeService.getStringByLocale(value )| translate: {default: normalizeFilterValue(localeService.getStringByLocale(value))} }}
+   <!-- end kawre edit -->
+   <span> ×</span>
+</a>

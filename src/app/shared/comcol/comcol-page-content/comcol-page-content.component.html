@@ -1,0 +1,8 @@
+<div *ngIf="content" class="content-with-optional-title mb-2">
+    <h2 *ngIf="title">{{ title | translate }}</h2>
+    <!-- kware edit
+           call getStringByLocale to separate string br bar '|'  -->
+    <div *ngIf="hasInnerHtml" [innerHtml]="localeService.getStringByLocale(content)"></div>
+    <div *ngIf="!hasInnerHtml">{{localeService.getStringByLocale(content)}}</div>
+    <!-- end kawre edit -->
+</div>

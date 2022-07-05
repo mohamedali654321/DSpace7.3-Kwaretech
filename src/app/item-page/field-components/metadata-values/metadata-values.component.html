@@ -1,0 +1,20 @@
+<!-- <ds-metadata-field-wrapper [label]="label | translate">
+    <span class="dont-break-out" *ngFor="let mdValue of mdValues; let last=last;">
+        {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
+    </span>
+</ds-metadata-field-wrapper> -->
+<ds-metadata-field-wrapper [label]="label | translate">
+  <div class="dont-break-out" *ngFor="let mdValue of mdValues; let last=last;" >
+      <a *ngIf="check ; else elseBlock" href="/search?query=&f.{{link}}={{mdValue.value}},equals">
+          {{ localeService.getStringByLocale(  mdValue.value) }}
+       </a>
+       <ng-template #elseBlock>
+          <span style="color:#094157 ;" >
+              {{ localeService.getStringByLocale(  mdValue.value) }}
+          </span>
+        </ng-template>
+
+  </div>
+
+
+</ds-metadata-field-wrapper>

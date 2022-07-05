@@ -1,0 +1,22 @@
+<div class="card">
+     <!-- kware edit
+           call getStringByLocale to separate string br bar '|'  -->
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/communities/', dso.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
+        <ds-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
+        </ds-thumbnail>
+    </a>
+    <span *ngIf="linkType == linkTypes.None" class="card-img-top">
+    <ds-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
+    </ds-thumbnail>
+  </span>
+    <div class="card-body">
+        <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+        <h4 class="card-title">{{localeService.getStringByLocale(dso.name)}}</h4>
+        <p *ngIf="dso.shortDescription" class="card-text">{{localeService.getStringByLocale(dso.shortDescription)}}</p>
+        <div *ngIf="linkType != linkTypes.None" class="text-center">
+            <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/communities/', dso.id]" class="lead btn btn-primary viewButton">{{'item-search-result.button-view' | translate}}</a>
+        </div>
+    </div>
+    <ng-content></ng-content>
+     <!-- end kawre edit -->
+</div>
